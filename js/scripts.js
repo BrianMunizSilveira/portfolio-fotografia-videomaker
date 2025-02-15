@@ -8,12 +8,28 @@ document.addEventListener("DOMContentLoaded", () => {
       this.classList.toggle("active")
     })
   
+    // Fechar menu ao clicar em um link (para dispositivos móveis)
+    const navLinks = document.querySelectorAll("nav ul li a")
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        navMenu.classList.remove("show")
+        menuToggle.classList.remove("active")
+      })
+    })
+  
     // Smooth scroll para links internos
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", function (e) {
         e.preventDefault()
   
-        document.querySelector(this.getAttribute("href")).scrollIntoView({
+        const targetId = this.getAttribute("href")
+        const targetElement = document.querySelector(targetId)
+        const headerOffset = document.querySelector("header").offsetHeight
+        const elementPosition = targetElement.getBoundingClientRect().top
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+  
+        window.scrollTo({
+          top: offsetPosition,
           behavior: "smooth",
         })
       })
@@ -57,6 +73,19 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", checkFade)
     window.addEventListener("load", checkFade)
   
+    // Efeito Parallax
+    function parallaxEffect() {
+      const parallaxSections = document.querySelectorAll(".parallax-section")
+  
+      parallaxSections.forEach((section) => {
+        const bg = section.querySelector(".parallax-bg")
+        const distance = window.pageYOffset - section.offsetTop
+        bg.style.transform = `translateY(${distance * 0.5}px)`
+      })
+    }
+  
+    window.addEventListener("scroll", parallaxEffect)
+  
     // Formulário de contato
     const contactForm = document.getElementById("contact-form")
   
@@ -83,6 +112,31 @@ document.addEventListener("DOMContentLoaded", () => {
   
     window.addEventListener("scroll", checkHeader)
     window.addEventListener("load", checkHeader)
+  
+    // Destacar item do menu ativo
+    function setActiveMenuItem() {
+      const sections = document.querySelectorAll("section")
+      const navItems = document.querySelectorAll("nav ul li a")
+  
+      let current = ""
+  
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop
+        if (pageYOffset >= sectionTop - 60) {
+          current = section.getAttribute("id")
+        }
+      })
+  
+      navItems.forEach((item) => {
+        item.classList.remove("active")
+        if (item.getAttribute("href").substring(1) === current) {
+          item.classList.add("active")
+        }
+      })
+    }
+  
+    window.addEventListener("scroll", setActiveMenuItem)
+    window.addEventListener("load", setActiveMenuItem)
   })
   
   
