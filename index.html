@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio Ferrera Borges</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Ferrera Borges</h1>
+            <nav>
+                <ul>
+                    <li><a href="#portfolio">Portfólio</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <section id="hero">
+        <video autoplay muted loop poster="img/poster.jpg">
+            <source src="video/background.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+        </video>
+        <div class="hero-content">
+            <h2>Capturando momentos, contando histórias</h2>
+            <a href="#portfolio" class="cta-button">Ver Portfólio</a>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="container">
+            <h2>Portfólio</h2>
+            <div class="filter-buttons">
+                <button data-filter="all" class="active">Todos</button>
+                <button data-filter="landscape">Paisagens</button>
+                <button data-filter="portrait">Pessoal</button>
+                <button data-filter="videomaker">Videomaker</button>
+            </div>
+            <div class="gallery">
+                <div class="category" id="landscape">
+                    <div class="photos">
+                        <img src="img/landscape1.jpg" alt="Paisagem 1" loading="lazy">
+                        <img src="img/landscape2.jpg" alt="Paisagem 2" loading="lazy">
+                        <img src="img/landscape3.jpg" alt="Paisagem 3" loading="lazy">
+                    </div>
+                </div>
+                <div class="category" id="portrait">
+                    <div class="photos">
+                        <img src="img/portrait1.jpg" alt="Retrato 1" loading="lazy">
+                        <img src="img/portrait2.jpg" alt="Retrato 2" loading="lazy">
+                        <img src="img/portrait3.jpg" alt="Retrato 3" loading="lazy">
+                    </div>
+                </div>
+                <div class="category" id="videomaker">
+                    <div class="videos">
+                        <video controls poster="img/video1-poster.jpg">
+                            <source src="video/video1.mp4" type="video/mp4">
+                            Seu navegador não suporta vídeos HTML5.
+                        </video>
+                        <video controls poster="img/video2-poster.jpg">
+                            <source src="video/video2.mp4" type="video/mp4">
+                            Seu navegador não suporta vídeos HTML5.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>Sobre Mim</h2>
+            <div class="about-content">
+                <img src="img/profile.jpg" alt="Ferrera Borges" class="profile-image">
+                <div class="about-text">
+                    <p>Olá! Sou Ferrera Borges, um fotógrafo e videomaker apaixonado por capturar a beleza do mundo ao meu redor. Com mais de 10 anos de experiência, meu trabalho busca contar histórias através de imagens impactantes e vídeos envolventes.</p>
+                    <p>Minha jornada na fotografia começou como um hobby, mas rapidamente se transformou em uma carreira gratificante. Especializo-me em fotografia de paisagens e retratos, além de produção de vídeos para diversos clientes e projetos pessoais.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Entre em Contato</h2>
+            <form id="contact-form">
+                <input type="text" name="name" placeholder="Seu Nome" required>
+                <input type="email" name="email" placeholder="Seu E-mail" required>
+                <textarea name="message" placeholder="Sua Mensagem" required></textarea>
+                <button type="submit">Enviar Mensagem</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Ferrera Borges. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>
