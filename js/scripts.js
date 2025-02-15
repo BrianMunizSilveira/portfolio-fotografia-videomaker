@@ -28,12 +28,69 @@ document.addEventListener("DOMContentLoaded", () => {
         const elementPosition = targetElement.getBoundingClientRect().top
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset
   
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        })
+        // Adiciona classe para iniciar a transição
+        document.body.classList.add("is-scrolling")
+  
+        smoothScrollTo(offsetPosition, 1000)
+  
+        // Remove a classe após a conclusão da rolagem
+        setTimeout(() => {
+          document.body.classList.remove("is-scrolling")
+        }, 1000)
       })
     })
+  
+    function smoothScrollTo(targetPosition, duration) {
+      const startPosition = window.pageYOffset
+      const distance = targetPosition - startPosition
+      let startTime = null
+  
+      function animation(currentTime) {
+        if (startTime === null) startTime = currentTime
+        const timeElapsed = currentTime - startTime
+        const run = ease(timeElapsed, startPosition, distance, duration)
+        window.scrollTo(0, run)
+        if (timeElapsed < duration) requestAnimationFrame(animation)
+      }
+  
+      function ease(t, b, c, d) {
+        t /= d / 2
+        if (t < 1) return (c / 2) * t * t + b
+        t--
+        return (-c / 2) * (t * (t - 2) - 1) + b
+      }
+  
+      requestAnimationFrame(animation)
+    }
+  
+    // Efeito Parallax otimizado para dispositivos móveis
+    function parallaxEffect() {
+      if (window.innerWidth > 768) {
+        const parallaxSections = document.querySelectorAll(".parallax-section")
+  
+        parallaxSections.forEach((section) => {
+          const bg = section.querySelector(".parallax-bg")
+          const distance = window.pageYOffset - section.offsetTop
+          bg.style.transform = `translateY(${distance * 0.5}px)`
+        })
+      }
+    }
+  
+    // Throttle function para otimizar o desempenho do parallax
+    function throttle(func, limit) {
+      let inThrottle
+      return function () {
+        const args = arguments
+  
+        if (!inThrottle) {
+          func.apply(this, args)
+          inThrottle = true
+          setTimeout(() => (inThrottle = false), limit)
+        }
+      }
+    }
+  
+    window.addEventListener("scroll", throttle(parallaxEffect, 10))
   
     // Filtro de portfólio
     const filterButtons = document.querySelectorAll(".filter-buttons button")
@@ -56,48 +113,45 @@ document.addEventListener("DOMContentLoaded", () => {
       })
     })
   
-    // Animação de fade-in para elementos ao rolar a página
-    const fadeElements = document.querySelectorAll(".fade-in")
+    // Lazy loading para imagens e vídeos
+    const lazyLoadMedia = () => {
+      const lazyImages = document.querySelectorAll('img[loading="lazy"]')
+      const lazyVideos = document.querySelectorAll('video[loading="lazy"]')
   
-    function checkFade() {
-      fadeElements.forEach((element) => {
-        const elementTop = element.getBoundingClientRect().top
-        const elementBottom = element.getBoundingClientRect().bottom
+      if ("IntersectionObserver" in window) {
+        const mediaObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const media = entry.target
+              if (media.tagName.toLowerCase() === "img") {
+                media.src = media.dataset.src
+              } else if (media.tagName.toLowerCase() === "video") {
+                media.src = media.dataset.src
+                media.load()
+              }
+              media.removeAttribute("loading")
+              observer.unobserve(media)
+            }
+          })
+        })
   
-        if (elementTop < window.innerHeight && elementBottom > 0) {
-          element.classList.add("visible")
-        }
-      })
+        lazyImages.forEach((img) => mediaObserver.observe(img))
+        lazyVideos.forEach((video) => mediaObserver.observe(video))
+      } else {
+        // Fallback para navegadores que não suportam IntersectionObserver
+        lazyImages.forEach((img) => {
+          img.src = img.dataset.src
+          img.removeAttribute("loading")
+        })
+        lazyVideos.forEach((video) => {
+          video.src = video.dataset.src
+          video.load()
+          video.removeAttribute("loading")
+        })
+      }
     }
   
-    window.addEventListener("scroll", checkFade)
-    window.addEventListener("load", checkFade)
-  
-    // Efeito Parallax
-    function parallaxEffect() {
-      const parallaxSections = document.querySelectorAll(".parallax-section")
-  
-      parallaxSections.forEach((section) => {
-        const bg = section.querySelector(".parallax-bg")
-        const distance = window.pageYOffset - section.offsetTop
-        bg.style.transform = `translateY(${distance * 0.5}px)`
-      })
-    }
-  
-    window.addEventListener("scroll", parallaxEffect)
-  
-    // Formulário de contato
-    const contactForm = document.getElementById("contact-form")
-  
-    contactForm.addEventListener("submit", (e) => {
-      e.preventDefault()
-  
-      // Aqui você pode adicionar a lógica para enviar o formulário
-      // Por exemplo, usando fetch para enviar os dados para um servidor
-  
-      alert("Mensagem enviada com sucesso!")
-      contactForm.reset()
-    })
+    lazyLoadMedia()
   
     // Header transparente no topo e sólido ao rolar
     const header = document.querySelector("header")
@@ -110,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   
-    window.addEventListener("scroll", checkHeader)
+    window.addEventListener("scroll", throttle(checkHeader, 100))
     window.addEventListener("load", checkHeader)
   
     // Destacar item do menu ativo
@@ -135,8 +189,51 @@ document.addEventListener("DOMContentLoaded", () => {
       })
     }
   
-    window.addEventListener("scroll", setActiveMenuItem)
+    window.addEventListener("scroll", throttle(setActiveMenuItem, 100))
     window.addEventListener("load", setActiveMenuItem)
+  
+    // Destacar seção ativa durante a rolagem
+    function highlightActiveSection() {
+      const sections = document.querySelectorAll("section")
+      const navItems = document.querySelectorAll("nav ul li a")
+  
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop - 100 // Ajuste conforme necessário
+        const sectionBottom = sectionTop + section.offsetHeight
+        const scrollPosition = window.scrollY
+  
+        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+          const correspondingNavItem = document.querySelector(`nav ul li a[href="#${section.id}"]`)
+          navItems.forEach((item) => item.classList.remove("active"))
+          if (correspondingNavItem) {
+            correspondingNavItem.classList.add("active")
+          }
+        }
+      })
+    }
+  
+    window.addEventListener("scroll", throttle(highlightActiveSection, 100))
+  
+    // Função para aplicar efeito de fade nas seções
+    function fadeInSections() {
+      const sections = document.querySelectorAll("section")
+      const windowHeight = window.innerHeight
+  
+      sections.forEach((section) => {
+        const sectionTop = section.getBoundingClientRect().top
+        const sectionBottom = section.getBoundingClientRect().bottom
+  
+        if (sectionTop < windowHeight * 0.75 && sectionBottom > 0) {
+          section.classList.add("visible")
+        } else {
+          section.classList.remove("visible")
+        }
+      })
+    }
+  
+    // Adicione os event listeners para a função fadeInSections
+    window.addEventListener("scroll", throttle(fadeInSections, 100))
+    window.addEventListener("load", fadeInSections)
   })
   
   

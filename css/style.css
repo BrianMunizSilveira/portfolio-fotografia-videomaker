@@ -10,9 +10,15 @@
     line-height: 1.6;
     color: #333;
     background-color: #f4f4f4;
+    transition: opacity 0.5s ease;
+  }
+  
+  body.is-scrolling {
+    opacity: 0.8;
   }
   
   .container {
+    width: 90%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
@@ -31,7 +37,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+    padding: 15px 0;
   }
   
   header h1 {
@@ -54,8 +60,13 @@
     text-decoration: none;
     font-size: 16px;
     font-weight: 400;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
     position: relative;
+  }
+  
+  nav ul li a.active {
+    color: #ffd700;
+    border-bottom: 2px solid #ffd700;
   }
   
   nav ul li a::after {
@@ -77,11 +88,11 @@
     display: none;
   }
   
-  /* Hero Section */
   /* Efeito Parallax */
   .parallax-section {
     position: relative;
     overflow: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease;
   }
   
   .parallax-bg {
@@ -95,7 +106,7 @@
     z-index: -1;
   }
   
-  /* Hero Section com Parallax */
+  /* Hero Section */
   #hero {
     height: 100vh;
     display: flex;
@@ -103,16 +114,6 @@
     justify-content: center;
     text-align: center;
     color: #fff;
-  }
-  
-  #hero video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
   }
   
   .hero-content {
@@ -123,7 +124,7 @@
   }
   
   #hero h2 {
-    font-size: 48px;
+    font-size: 3rem;
     margin-bottom: 20px;
     font-weight: 700;
   }
@@ -152,7 +153,7 @@
   
   #portfolio h2 {
     text-align: center;
-    font-size: 36px;
+    font-size: 2.5rem;
     margin-bottom: 40px;
     color: #333;
   }
@@ -160,6 +161,7 @@
   .filter-buttons {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     margin-bottom: 30px;
   }
   
@@ -167,7 +169,7 @@
     background-color: #f4f4f4;
     border: none;
     padding: 10px 20px;
-    margin: 0 10px;
+    margin: 5px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 500;
@@ -190,7 +192,7 @@
   .gallery img,
   .gallery video {
     width: 100%;
-    height: 300px;
+    height: auto;
     object-fit: cover;
     border-radius: 10px;
     transition: transform 0.3s ease;
@@ -202,9 +204,8 @@
   }
   
   /* About Section */
-  /* About Section com Parallax */
   #about {
-    padding: 100px 0;
+    padding: 80px 0;
     color: #fff;
   }
   
@@ -215,7 +216,7 @@
   
   #about h2 {
     text-align: center;
-    font-size: 36px;
+    font-size: 2.5rem;
     margin-bottom: 40px;
     color: #fff;
   }
@@ -230,65 +231,84 @@
   }
   
   .profile-image {
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
     object-fit: cover;
     border-radius: 50%;
   }
   
   .about-text p {
     margin-bottom: 20px;
-    font-size: 18px;
+    font-size: 1rem;
     line-height: 1.8;
   }
   
-  /* Contact Section */
-  #contact {
+  /* Social Section */
+  #social {
     padding: 80px 0;
-    background-color: #fff;
+    background-color: #f4f4f4;
   }
   
-  #contact h2 {
+  #social h2 {
     text-align: center;
-    font-size: 36px;
+    font-size: 2.5rem;
     margin-bottom: 40px;
     color: #333;
   }
   
-  #contact-form {
-    max-width: 600px;
-    margin: 0 auto;
+  .social-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
   }
   
-  #contact-form input,
-  #contact-form textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  #contact-form textarea {
-    height: 150px;
-    resize: vertical;
-  }
-  
-  #contact-form button {
-    background-color: #ffd700;
+  .social-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
     color: #333;
-    border: none;
-    padding: 12px 30px;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s ease, color 0.3s ease;
   }
   
-  #contact-form button:hover {
-    background-color: #ffea00;
+  .social-link:hover {
+    transform: translateY(-5px);
+  }
+  
+  .social-link i {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+  
+  .social-link span {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .social-link.whatsapp:hover {
+    color: #25d366;
+  }
+  
+  .social-link.instagram:hover {
+    color: #e1306c;
+  }
+  
+  .social-link.email:hover {
+    color: #d44638;
+  }
+  
+  /* Responsividade para a seção social */
+  @media (max-width: 768px) {
+    .social-links {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .social-link {
+      margin-bottom: 20px;
+    }
   }
   
   /* Footer */
@@ -324,7 +344,6 @@
     }
   
     nav {
-      margin-top: 20px;
       width: 100%;
     }
   
@@ -373,6 +392,10 @@
       transform: rotate(45deg) translate(-5px, -6px);
     }
   
+    #hero h2 {
+      font-size: 2rem;
+    }
+  
     .about-content {
       flex-direction: column;
       text-align: center;
@@ -391,18 +414,65 @@
     }
   }
   
-  /* Animações */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
+  @media (max-width: 480px) {
+    #hero h2 {
+      font-size: 1.5rem;
     }
-    to {
-      opacity: 1;
+  
+    .cta-button {
+      font-size: 16px;
+      padding: 10px 20px;
+    }
+  
+    #portfolio h2,
+    #about h2,
+    #social h2 {
+      font-size: 2rem;
+    }
+  
+    .filter-buttons button {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  
+    .about-text p {
+      font-size: 0.9rem;
     }
   }
   
-  .fade-in {
-    animation: fadeIn 1s ease-in-out;
+  /* Transições suaves */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    transition: opacity 0.5s ease;
+  }
+  
+  body.is-scrolling {
+    opacity: 0.8;
+  }
+  
+  section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  
+    body,
+    section {
+      transition: none;
+    }
   }
   
   
