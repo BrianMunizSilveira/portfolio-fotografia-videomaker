@@ -125,10 +125,11 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
-  // Lazy loading para imagens e vídeos
+  // Lazy loading aprimorado para imagens e vídeos
   const lazyLoadMedia = () => {
     const lazyImages = document.querySelectorAll('img[loading="lazy"]')
     const lazyVideos = document.querySelectorAll('video[loading="lazy"]')
+    const lazyBackgrounds = document.querySelectorAll(".parallax-bg")
 
     if ("IntersectionObserver" in window) {
       const mediaObserver = new IntersectionObserver((entries, observer) => {
@@ -136,10 +137,24 @@ document.addEventListener("DOMContentLoaded", () => {
           if (entry.isIntersecting) {
             const media = entry.target
             if (media.tagName.toLowerCase() === "img") {
-              media.src = media.dataset.src
+              const srcset = media.dataset.srcset
+              const sizes = media.dataset.sizes
+
+              if (srcset) {
+                media.srcset = srcset
+              }
+              if (sizes) {
+                media.sizes = sizes
+              }
+              media.src = media.dataset.src || media.src
             } else if (media.tagName.toLowerCase() === "video") {
-              media.src = media.dataset.src
-              media.load()
+              const source = media.querySelector("source")
+              if (source) {
+                source.src = source.dataset.src
+                media.load()
+              }
+            } else if (media.classList.contains("parallax-bg")) {
+              media.style.backgroundImage = `url('${media.dataset.src}')`
             }
             media.removeAttribute("loading")
             observer.unobserve(media)
@@ -149,16 +164,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
       lazyImages.forEach((img) => mediaObserver.observe(img))
       lazyVideos.forEach((video) => mediaObserver.observe(video))
+      lazyBackgrounds.forEach((bg) => mediaObserver.observe(bg))
     } else {
       // Fallback para navegadores que não suportam IntersectionObserver
       lazyImages.forEach((img) => {
         img.src = img.dataset.src
+        img.srcset = img.dataset.srcset
+        img.sizes = img.dataset.sizes
         img.removeAttribute("loading")
       })
       lazyVideos.forEach((video) => {
-        video.src = video.dataset.src
-        video.load()
+        const source = video.querySelector("source")
+        if (source) {
+          source.src = source.dataset.src
+          video.load()
+        }
         video.removeAttribute("loading")
+      })
+      lazyBackgrounds.forEach((bg) => {
+        bg.style.backgroundImage = `url('${bg.dataset.src}')`
       })
     }
   }
