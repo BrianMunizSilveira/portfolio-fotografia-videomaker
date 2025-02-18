@@ -47,45 +47,47 @@
                 <button data-filter="videomaker">Videomaker</button>
             </div>
             <div class="gallery">
-                <div class="category" id="landscape">
-                    <div class="photos">
-                        <img src="/media/fotos/cogumelo.jpg" 
-                             srcset="/media/fotos/cogumelo.jpg 400w, /media/fotos/cogumelo.jpg 800w, /media/fotos/cogumelo.jpg 1200w"
-                             sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw"
-                             alt="Paisagem 1" loading="lazy">
-                        <img src="/media/fotos/entrada.jpg"
-                             srcset="/media/fotos/entrada.jpg 400w, /media/fotos/entrada.jpg 800w, /media/fotos/entrada.jpg 1200w"
-                             sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw"
-                             alt="Paisagem 2" loading="lazy">
-                        <img src="/media/fotos/arvore.jpg"
-                             srcset="/media/fotos/arvore.jpg 400w, /media/fotos/arvore.jpg 800w, /media/fotos/arvore.jpg 1200w"
-                             sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw"
-                             alt="Paisagem 3" loading="lazy">
-                    </div>
+                <div class="gallery-item landscape" data-category="landscape">
+                    <img src="/media/fotos/arvore.jpg" 
+                         srcset="/media/fotos/arvore.jpg 400w, /media/fotos/arvore.jpg 800w, /media/fotos/arvore.jpg 1200w"
+                         sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw"
+                         alt="Paisagem 1" loading="lazy">
                 </div>
-                <div class="category" id="portrait">
-                    <div class="photos">
-                        <img src="/media/fotos/Sasaki.jpg"
-                             srcset="/media/fotos/Sasaki.jpg 400w, /media/fotos/Sasaki.jpg 800w, /media/fotos/Sasaki.jpg 1200w"
-                             sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw"
-                             alt="Retrato 1" loading="lazy">
-                        <img src="/media/fotos/Kaio.jpg"
-                             srcset="/media/fotos/Kaio.jpg 400w, /media/fotos/Kaio.jpg 800w, /media/fotos/Kaio.jpg 1200w"
-                             sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw"
-                             alt="Retrato 2" loading="lazy">
-                        <img src="/media/fotos/Isodok.jpg"
-                             srcset="/media/fotos/Isodok.jpg 400w, /media/fotos/Isodok.jpg 800w, /media/fotos/Isodok.jpg 1200w"
-                             sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw"
-                             alt="Retrato 3" loading="lazy">
-                    </div>
+                <div class="gallery-item landscape" data-category="landscape">
+                    <img src="/media/fotos/cogumelo.jpg"
+                         srcset="/media/fotos/cogumelo.jpg 400w, /media/fotos/cogumelo.jpg 800w, /media/fotos/cogumelo.jpg 1200w"
+                         sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw"
+                         alt="Paisagem 2" loading="lazy">
                 </div>
-                <div class="category" id="videomaker">
-                    <div class="videos">
-                        <video controls poster="/media/videos/Coronel.mp4">
-                            <source src="/media/videos/Coronel.mp4" type="video/mp4">
-                            Seu navegador não suporta vídeos HTML5.
-                        </video>
-                    </div>
+                <div class="gallery-item landscape" data-category="landscape">
+                    <img src="/media/fotos/entrada.jpg"
+                         srcset="/media/fotos/entrada.jpg 400w, /media/fotos/entrada.jpg 800w, /media/fotos/entrada.jpg 1200w"
+                         sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw"
+                         alt="Paisagem 3" loading="lazy">
+                </div>
+                <div class="gallery-item portrait" data-category="portrait">
+                    <img src="/media/fotos/kaio2.jpg"
+                         srcset="/media/fotos/kaio2.jpg 400w, /media/fotos/kaio2.jpg 800w, /media/fotos/kaio2.jpg 1200w"
+                         sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw"
+                         alt="Retrato 1" loading="lazy">
+                </div>
+                <div class="gallery-item portrait" data-category="portrait">
+                    <img src="/media/fotos/gurizinho.jpg"
+                         srcset="/media/fotos/gurizinho.jpg 400w, /media/fotos/gurizinho.jpg 800w, /media/fotos/gurizinho.jpg 1200w"
+                         sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw"
+                         alt="Retrato 2" loading="lazy">
+                </div>
+                <div class="gallery-item portrait" data-category="portrait">
+                    <img src="/media/fotos/Isodok.jpg"
+                         srcset="/media/fotos/Isodok.jpg 400w, /media/fotos/Isodok.jpg 800w, /media/fotos/Isodok.jpg 1200w"
+                         sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw"
+                         alt="Retrato 3" loading="lazy">
+                </div>
+                <div class="gallery-item videomaker" data-category="videomaker">
+                    <video controls poster="/media/videos/Coronel.mp4">
+                        <source src="/media/videos/Coronel.mp4" type="video/mp4">
+                        Seu navegador não suporta vídeos HTML5.
+                    </video>
                 </div>
             </div>
         </div>
@@ -102,7 +104,7 @@
                      sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw"
                      alt="Ferrera Borges" class="profile-image">
                 <div class="about-text">
-                    <p>Olá! Sou Ferrera Borges, um fotógrafo e videomaker apaixonado por capturar a beleza do mundo ao meu redor. Com pouca experiencia no ramo, meu trabalho busca contar histórias através de imagens impactantes e vídeos envolventes.</p>
+                    <p>Olá! Sou Ferrera, um fotógrafo e videomaker apaixonado por capturar a beleza do mundo ao meu redor. Com pouca experiencia no ramo, meu trabalho busca contar histórias através de imagens impactantes e vídeos envolventes.</p>
                     <p>Minha jornada na fotografia começou como um hobby, mas rapidamente pretendo tranformar em uma carreira gratificante. Especializo-me em fotografia de paisagens e retratos, além de produção de vídeos para diversos clientes e projetos pessoais.</p>
                 </div>
             </div>
