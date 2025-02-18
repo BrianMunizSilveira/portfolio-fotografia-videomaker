@@ -92,7 +92,6 @@
   .parallax-section {
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease, opacity 0.3s ease;
   }
   
   .parallax-bg {
@@ -104,6 +103,24 @@
     background-size: cover;
     background-position: center;
     z-index: -1;
+  }
+  
+  .desktop-parallax {
+    display: none;
+  }
+  
+  .mobile-parallax {
+    display: block;
+  }
+  
+  @media (min-width: 768px) {
+    .desktop-parallax {
+      display: block;
+    }
+  
+    .mobile-parallax {
+      display: none;
+    }
   }
   
   /* Hero Section */
@@ -299,18 +316,6 @@
     color: #d44638;
   }
   
-  /* Responsividade para a seção social */
-  @media (max-width: 768px) {
-    .social-links {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .social-link {
-      margin-bottom: 20px;
-    }
-  }
-  
   /* Footer */
   footer {
     background-color: #333;
@@ -323,17 +328,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  
-  .social-links a {
-    color: #fff;
-    font-size: 24px;
-    margin-left: 20px;
-    transition: color 0.3s ease;
-  }
-  
-  .social-links a:hover {
-    color: #ffd700;
   }
   
   /* Responsividade */
@@ -405,12 +399,13 @@
       margin-bottom: 20px;
     }
   
-    footer .container {
+    .social-links {
       flex-direction: column;
+      align-items: center;
     }
   
-    .social-links {
-      margin-top: 20px;
+    .social-link {
+      margin-bottom: 20px;
     }
   }
   

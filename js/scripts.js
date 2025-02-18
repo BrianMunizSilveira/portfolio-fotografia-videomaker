@@ -63,17 +63,23 @@ document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(animation)
     }
   
-    // Efeito Parallax otimizado para dispositivos móveis
+    // Efeito Parallax otimizado para desktop e mobile
     function parallaxEffect() {
-      if (window.innerWidth > 768) {
-        const parallaxSections = document.querySelectorAll(".parallax-section")
+      const parallaxSections = document.querySelectorAll(".parallax-section")
   
-        parallaxSections.forEach((section) => {
-          const bg = section.querySelector(".parallax-bg")
-          const distance = window.pageYOffset - section.offsetTop
-          bg.style.transform = `translateY(${distance * 0.5}px)`
-        })
-      }
+      parallaxSections.forEach((section) => {
+        const desktopBg = section.querySelector(".desktop-parallax")
+        const mobileBg = section.querySelector(".mobile-parallax")
+        const distance = window.pageYOffset - section.offsetTop
+  
+        if (window.innerWidth > 768) {
+          // Desktop parallax
+          desktopBg.style.transform = `translateY(${distance * 0.5}px)`
+        } else {
+          // Mobile parallax (suave deslizamento)
+          mobileBg.style.transform = `translateY(${distance * 0.2}px)`
+        }
+      })
     }
   
     // Throttle function para otimizar o desempenho do parallax
@@ -91,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     window.addEventListener("scroll", throttle(parallaxEffect, 10))
+    window.addEventListener("resize", throttle(parallaxEffect, 10))
   
     // Filtro de portfólio
     const filterButtons = document.querySelectorAll(".filter-buttons button")
